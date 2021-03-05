@@ -1,0 +1,29 @@
+{
+    "ReRoutes": [
+        // UserApi
+        {
+            "DownstreamPathTemplate": "/api/v1/User",
+            "DownstreamPathScheme": "http",
+            "DownstreamPathHostAndPorts": [
+                {
+                    "Host": "userapi",
+                    "Port": "8000"
+                }
+            ],
+            "UpstreamPathTamplate": "User",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/{id}",
+            "DownstreamPathScheme": "http",
+            "DownstreamPathHostAndPorts": [
+                {
+                    "Host": "userapi",
+                    "Port": "8000"
+                }
+            ],
+            "UpstreamPathTamplate": "User",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+        }
+    ]
+}

@@ -1,0 +1,68 @@
+version: '3.4'
+
+services:
+  userdb:
+    container_name: userdb
+    restart: on-failure
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/site/userdb:/data/db
+    ports:
+      - "27017:27017"
+
+  researchdb:
+    container_name: researchdb
+    restart: on-failure
+    depends_on:
+      - userdb
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/site/researchdb:/data/db
+    ports:
+      - "27018:27017"
+
+  userdbviewer:
+    restart: on-failure
+    ports:
+      - "10019:8081"
+    links:
+      - userdb
+    depends_on:
+      - userdb
+    environment:
+      ME_CONFIG_MONGODB_SERVER: userdb
+
+  researchdbviewer:
+    restart: on-failure
+    ports:
+      - "10020:8081"
+    links:
+      - researchdb
+    depends_on:
+      - researchdb
+    environment:
+      ME_CONFIG_MONGODB_SERVER: researchdb
+
+  userapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "UserDatabaseSettings:ConnectionString=mongodb://userdb:27017"
+    depends_on:
+      - userdb
+    volumes: 
+      - ${HOME}/.microsoft/usersecrets:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https/:/root/.aspnet/https
+    ports:
+      - "8000:80"
+
+  researchapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ResearchDatabaseSettings:ConnectionString=mongodb://researchdb:27017"
+    depends_on:
+     - researchdb
+     - userapi
+    volumes: 
+      - ${HOME}/.microsoft/usersecrets:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https/:/root/.aspnet/https
+    ports:
+      - "8001:80"
+

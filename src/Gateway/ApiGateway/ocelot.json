@@ -1,29 +1,136 @@
 {
-    "ReRoutes": [
-        // UserApi
+    "Routes": [
         {
             "DownstreamPathTemplate": "/api/v1/User",
             "DownstreamPathScheme": "http",
-            "DownstreamPathHostAndPorts": [
+            "DownstreamHostAndPorts": [
                 {
                     "Host": "userapi",
-                    "Port": "8000"
+                    "Port": "80"
                 }
             ],
-            "UpstreamPathTamplate": "User",
+            "UpstreamPathTemplate": "/User",
             "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
         },
         {
-            "DownstreamPathTemplate": "/api/v1/User/{id}",
+            "DownstreamPathTemplate": "/api/v1/User/{userid}",
             "DownstreamPathScheme": "http",
-            "DownstreamPathHostAndPorts": [
+            "DownstreamHostAndPorts": [
                 {
                     "Host": "userapi",
-                    "Port": "8000"
+                    "Port": "80"
                 }
             ],
-            "UpstreamPathTamplate": "User",
+            "UpstreamPathTemplate": "/User/{userid}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/authenticate",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/User/authenticate",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research",
             "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Canvas",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}/Question",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}/Question",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}/Question/{questionId}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}/Question/{questionId}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Post",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Post",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Post/{postId}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Post/{postId}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
         }
     ]
 }

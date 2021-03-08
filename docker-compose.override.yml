@@ -66,3 +66,14 @@ services:
     ports:
       - "8001:80"
 
+
+  apigateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - userapi
+      - researchapi
+    ports:
+      - "7000:80"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

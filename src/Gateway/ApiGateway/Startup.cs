@@ -31,13 +31,7 @@ namespace ApiGateway
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            app.UseEndpoints(x => x.MapControllers());
 
             await app.UseOcelot();
         }

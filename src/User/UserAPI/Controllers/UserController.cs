@@ -35,7 +35,6 @@ namespace UserAPI.Controllers
             }
             return Ok(payload);
         }
-        [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<User>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
@@ -43,7 +42,6 @@ namespace UserAPI.Controllers
             var users = await _repository.GetUsers();
             return Ok(users);
         }
-        [Authorize]
         [HttpGet("{id:length(24)}", Name = "GetUser")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
@@ -56,7 +54,6 @@ namespace UserAPI.Controllers
             }
             return Ok(user);
         }
-        [Authorize]
         [HttpPost]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<User>> CreateUser([FromBody] User user)
@@ -65,14 +62,12 @@ namespace UserAPI.Controllers
 
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
-        [Authorize]
         [HttpPut]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> UpdateUser([FromBody] User user)
         {
             return Ok(await _repository.Update(user));
         }
-        [Authorize]
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> DeleteUser(string id)

@@ -10,19 +10,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/User",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/v1/User/{userid}",
-            "DownstreamPathScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "userapi",
-                    "Port": "80"
-                }
-            ],
-            "UpstreamPathTemplate": "/User/{userid}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/User/authenticate",
@@ -37,6 +29,22 @@
             "UpstreamHttpMethod": [ "POST" ]
         },
         {
+            "DownstreamPathTemplate": "/api/v1/User/{userid}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/User/{userid}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
             "DownstreamPathTemplate": "/api/v1/Research",
             "DownstreamPathScheme": "http",
             "DownstreamHostAndPorts": [
@@ -46,7 +54,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/Research/{researchId}",
@@ -58,7 +70,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas",
@@ -70,7 +86,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Canvas",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}",
@@ -82,7 +102,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}/Question",
@@ -94,7 +118,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}/Question",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}/Question/{questionId}",
@@ -106,7 +134,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}/Question/{questionId}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Post",
@@ -118,7 +150,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Post",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Post/{postId}",
@@ -130,7 +166,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Post/{postId}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         }
     ]
 }

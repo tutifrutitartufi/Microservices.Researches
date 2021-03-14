@@ -26,12 +26,6 @@ namespace UserAPI.Helpers
         public async Task Invoke(HttpContext context, IUserRepository repository)
        {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            bool sameOrigin = context.Request.Headers["same-origin"] == "1";
-
-            if (sameOrigin)
-            {
-                context.Items["Same-Origin"] = true;
-            }
 
             if (token != null)
                 attachUserToContext(context, repository, token);
@@ -41,15 +35,7 @@ namespace UserAPI.Helpers
 
         private async void attachUserToContext(HttpContext context, IUserRepository repository, string token)
         {
-            bool sameOrigin = context.Request.Headers["same-origin"] == "1";
-            if (sameOrigin)
-            {
-                context.Items["SameOrigin"] = true;
-            }
-            else
-            {
-                try
-                {
+             try{
                     var tokenHandler = new JwtSecurityTokenHandler();
                     var key = Encoding.ASCII.GetBytes("Zivot tezak nije lak................");
                     tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -73,8 +59,6 @@ namespace UserAPI.Helpers
                     // do nothing if jwt validation fails
                     // user is not attached to context so request won't have access to secure routes
                 }
-            }
-            
         }
     }
 }

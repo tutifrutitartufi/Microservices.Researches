@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApiGateway.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,6 +42,7 @@ namespace ApiGateway
             });
 
 
+            services.DecorateClaimAuthorizer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

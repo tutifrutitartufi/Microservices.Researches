@@ -10,10 +10,29 @@
                 }
             ],
             "UpstreamPathTemplate": "/User",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "UpstreamHttpMethod": [ "GET", "POST" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/User",
+            "UpstreamHttpMethod": [ "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
             }
         },
         {
@@ -38,7 +57,42 @@
                 }
             ],
             "UpstreamPathTemplate": "/User/{userid}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "UpstreamHttpMethod": [ "GET" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/{userid}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/User/{userid}",
+            "UpstreamHttpMethod": [ "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research",
+            "UpstreamHttpMethod": [ "GET" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -54,7 +108,45 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "UpstreamHttpMethod": [ "POST" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research",
+            "UpstreamHttpMethod": [ "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Moderator"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}",
+            "UpstreamHttpMethod": [ "GET" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -70,10 +162,13 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "UpstreamHttpMethod": [ "DELETE" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
             }
         },
         {

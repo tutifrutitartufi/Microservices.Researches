@@ -28,7 +28,9 @@ namespace ResearchAPI.Repositories.Interfaces
         Task<IEnumerable<Post>> GetPostsByResearchID(string researchId);
         Task<bool> UpdatePost(string researchId, Post post);
         Task<bool> DeletePost(string researchId, string postId);
-
+        Task<string> GetLastPostID(string researchId);
+        Task<string> GetLastCanvasID(string researchId);
+        Task<string> GetLastQuestionID(string researchId, string canvasId);
 
     }
 }

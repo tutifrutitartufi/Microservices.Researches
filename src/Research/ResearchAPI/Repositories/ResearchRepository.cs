@@ -61,6 +61,7 @@ namespace ResearchAPI.Repositories
         }
         public async Task CreateCanvas(string researchId, Canvas canvas)
         {
+            canvas.Id = (Int32.Parse(await GetLastCanvasID(researchId)) + 1) + "";
             FilterDefinition<Research> filter = Builders<Research>.Filter.Eq(p => p.Id, researchId);
             UpdateDefinition<Research> update = Builders<Research>.Update.Push(t => t.Canvasess, canvas);
             await _context.Researches.UpdateOneAsync(filter, update);
@@ -138,6 +139,7 @@ namespace ResearchAPI.Repositories
                 {
                     if (question != null)
                     {
+                        question.Id = (Int32.Parse(await GetLastQuestionID(researchId, canvasId)) + 1) + "";
                         canvas.Questions.Add(question);
                         await UpdateCanvas(researchId, canvas);
                     }
@@ -185,6 +187,7 @@ namespace ResearchAPI.Repositories
         //Post
         public async Task CreatePost(string researchId, Post post)
         {
+            post.Id = (Int32.Parse(await GetLastPostID(researchId)) + 1) + "";
             FilterDefinition<Research> filter = Builders<Research>.Filter.Eq(p => p.Id, researchId);
             UpdateDefinition<Research> update = Builders<Research>.Update.Push(t => t.Posts, post);
             await _context.Researches.UpdateOneAsync(filter, update);
@@ -238,9 +241,40 @@ namespace ResearchAPI.Repositories
             return false;
         }
 
+        public async Task<string> GetLastPostID(string researchId)
+        {
+            Research research = await GetResearch(researchId);
+            if(research.Posts.Last() != null)
+            {
+                return research.Posts.Last().Id;
+            }
+            return "99";
+        }
+        public async Task<string> GetLastCanvasID(string researchId)
+        {
+            Research research = await GetResearch(researchId);
+            if(research.Canvasess.Last() != null)
+            {
+                return research.Canvasess.Last().Id;
+            }
+            return "99";
+        }
 
+        public async Task<string> GetLastQuestionID(string researchId, string canvasId)
+        {
+            Research research = await GetResearch(researchId);
+            if (research != null)
+            {
+                Canvas foundedCanvas = research.Canvasess.Find(el => el.Id == canvasId);
+                if(foundedCanvas.Questions.Last() != null)
+                {
+                    return foundedCanvas.Questions.Last().Id;
+                }
+                return "99";
+            }
 
-
+            return null;
+        }
 
     }
 }

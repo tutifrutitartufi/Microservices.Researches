@@ -32,7 +32,6 @@ namespace ResearchAPI.Data
             "http://userapi:80/api/v1/User");
 
             var client = _clientFactory.CreateClient();
-            request.Headers.Add("same-origin", "1");
             var response = await client.SendAsync(request);
             if (response.IsSuccessStatusCode)
             {
@@ -81,13 +80,13 @@ namespace ResearchAPI.Data
                     {
                         new Canvas()
                         {
-                            Id = "1",
+                            Id = "100",
                             Title = "Canvas Title Test 1",
                             Questions = new List<Question>()
                             {
                                 new Question()
                                 {
-                                    Id = "1",
+                                    Id = "100",
                                     Title = "Title Test 1",
                                     Answer = "Test 123",
                                     Statistic = "Test 123123123 stat",

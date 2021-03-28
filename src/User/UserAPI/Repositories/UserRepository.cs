@@ -8,6 +8,7 @@ using UserAPI.Entities;
 using UserAPI.Helpers;
 using UserAPI.Models;
 using UserAPI.Repositories.Interfaces;
+using BC = BCrypt.Net.BCrypt;
 
 namespace UserAPI.Repositories
 {
@@ -23,17 +24,19 @@ namespace UserAPI.Repositories
 
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
-            var user = await _context.Users.Find(p => p.Username == model.Username && p.Password == model.Password).FirstOrDefaultAsync();
-            if(user == null)
-            {
-                return null;
-            }
-
-            return new AuthenticateResponse(user, TokenGenerator.GenerateJwtToken(user));
+            var user = await _context.Users.Find(p => p.Username == model.Username).FirstOrDefaultAsync();
+                if (user == null || !BC.Verify(model.Password, user.Password))
+                {
+                    return null;
+                }
+               
+                return new AuthenticateResponse(user, TokenGenerator.GenerateJwtToken(user));
         }
 
         public async Task Create(User user)
         {
+            string passwordHash = BC.HashPassword(user.Password);
+            user.Password = passwordHash;
             await _context.Users.InsertOneAsync(user);
         }
 

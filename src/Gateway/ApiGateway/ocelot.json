@@ -181,7 +181,42 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Canvas",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "UpstreamHttpMethod": [ "GET" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Canvas",
+            "UpstreamHttpMethod": [ "POST", "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Moderator"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}",
+            "UpstreamHttpMethod": [ "GET" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -197,7 +232,26 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "UpstreamHttpMethod": [ "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}/Question",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}/Question",
+            "UpstreamHttpMethod": [ "GET" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -213,7 +267,26 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}/Question",
-            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "UpstreamHttpMethod": [ "POST", "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Moderator"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Canvas/{canvasId}/Question/{questionId}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}/Question/{questionId}",
+            "UpstreamHttpMethod": [ "GET" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -229,10 +302,13 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Canvas/{canvasId}/Question/{questionId}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "UpstreamHttpMethod": [ "DELETE" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
             }
         },
         {
@@ -261,10 +337,29 @@
                 }
             ],
             "UpstreamPathTemplate": "/Research/{researchId}/Post/{postId}",
-            "UpstreamHttpMethod": [ "GET", "DELETE" ],
+            "UpstreamHttpMethod": [ "GET" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Research/{researchId}/Post/{postId}",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "researchapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/Research/{researchId}/Post/{postId}",
+            "UpstreamHttpMethod": [ "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "http///schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
             }
         }
     ]

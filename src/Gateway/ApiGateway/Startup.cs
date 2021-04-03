@@ -23,7 +23,12 @@ namespace ApiGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot();
-            var key = Encoding.ASCII.GetBytes("Zivot tezak nije lak................");
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -35,7 +40,7 @@ namespace ApiGateway
                 x.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("Zivot tezak nije lak................")),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
@@ -52,6 +57,7 @@ namespace ApiGateway
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("MyPolicy");
 
             app.UseRouting();
 

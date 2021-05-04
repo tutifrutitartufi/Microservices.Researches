@@ -244,7 +244,7 @@ namespace ResearchAPI.Repositories
         public async Task<string> GetLastPostID(string researchId)
         {
             Research research = await GetResearch(researchId);
-            if(research.Posts.ToArray().Length != 0)
+            if(research.Posts != null && research.Posts.ToArray().Length != 0)
             {
                 return research.Posts.Last().Id;
             }
@@ -253,7 +253,7 @@ namespace ResearchAPI.Repositories
         public async Task<string> GetLastCanvasID(string researchId)
         {
             Research research = await GetResearch(researchId);
-            if(research.Canvasess.ToArray().Length != 0)
+            if(research.Canvasess != null && research.Canvasess.ToArray().Length != 0)
             {
                 return research.Canvasess.Last().Id;
             }
@@ -266,7 +266,7 @@ namespace ResearchAPI.Repositories
             if (research != null)
             {
                 Canvas foundedCanvas = research.Canvasess.Find(el => el.Id == canvasId);
-                if(foundedCanvas.Questions.ToArray().Length != 0)
+                if(foundedCanvas.Questions != null && foundedCanvas.Questions.ToArray().Length != 0)
                 {
                     return foundedCanvas.Questions.Last().Id;
                 }

@@ -59,8 +59,17 @@ namespace UserAPI.Repositories
 
         public async Task<bool> Update(User user)
         {
-            var updateResult = await _context.Users.ReplaceOneAsync(filter: g => g.Id == user.Id, replacement: user);
-            return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
+            FilterDefinition<User> filter = Builders<User>.Filter.Eq(p => p.Id, user.Id);
+            var update = Builders<User>.Update
+                .Set("FirstName", user.FirstName)
+                .Set("LastName", user.LastName)
+                .Set("Username", user.Username)
+                .Set("ProfilePicture", user.ProfilePicture)
+                .Set("DateOfBirth", user.DateOfBirth)
+                .Set("Role", user.Role);
+            var updateResult = await _context.Users.UpdateOneAsync(filter, update);
+            return updateResult.ModifiedCount == 1;
+
         }
     }
 }

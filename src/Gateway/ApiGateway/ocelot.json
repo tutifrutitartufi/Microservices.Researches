@@ -10,7 +10,23 @@
                 }
             ],
             "UpstreamPathTemplate": "/User",
-            "UpstreamHttpMethod": [ "GET", "POST" ],
+            "UpstreamHttpMethod": [ "GET" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/search",
+            "DownstreamPathScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userapi",
+                    "Port": "80"
+                }
+            ],
+            "UpstreamPathTemplate": "/User/search",
+            "UpstreamHttpMethod": [ "GET" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -26,7 +42,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/User",
-            "UpstreamHttpMethod": [ "PUT" ],
+            "UpstreamHttpMethod": [ "PUT", "POST" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []

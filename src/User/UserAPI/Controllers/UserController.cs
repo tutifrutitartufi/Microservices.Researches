@@ -54,6 +54,18 @@ namespace UserAPI.Controllers
             }
             return Ok(user);
         }
+        [HttpGet("search")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<User>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<User>>> SearchUser(string username)
+        {
+            var users = await _repository.Search(username);
+            if (users == null)
+            {
+                return NotFound();
+            }
+            return Ok(users);
+        }
         [HttpPost]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<User>> CreateUser([FromBody] User user)

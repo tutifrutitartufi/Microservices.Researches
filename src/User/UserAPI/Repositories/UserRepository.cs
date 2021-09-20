@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using UserAPI.Data.Interfaces;
 using UserAPI.Entities;
@@ -55,6 +57,11 @@ namespace UserAPI.Repositories
         public async Task<IEnumerable<User>> GetUsers()
         {
             return await _context.Users.Find(p => true).ToListAsync();
+        }
+        public async Task<IEnumerable<User>> Search(string username)
+        {
+            var filter = new BsonDocument { { "Username", new BsonDocument { { "$regex", username }, { "$options", "i" } } } };
+            return await _context.Users.Find(filter).ToListAsync();
         }
 
         public async Task<bool> Update(User user)

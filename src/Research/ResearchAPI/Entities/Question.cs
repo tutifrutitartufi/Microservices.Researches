@@ -14,8 +14,6 @@ namespace ResearchAPI.Entities
     {
         public string Id{ get; set; }
         public string Title { get; set; }
-        public string Answer{ get; set; }
-        public string Statistic{ get; set; }
         public QuestionType Type { get; set; }
     }
 }

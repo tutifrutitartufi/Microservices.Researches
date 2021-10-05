@@ -42,20 +42,41 @@ namespace ResearchAPI.Controllers
         [ProducesResponseType(typeof(Research), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Research>> CreateResearch([FromBody] Research research)
         {
-            await _repository.Create(research);
-            return CreatedAtRoute("GetResearch", new { id = research.Id }, research);
+            try
+            {
+                await _repository.Create(research);
+                return Ok("Истраживање је успешно креирано");
+            }
+            catch
+            {
+                return BadRequest("Није могуће креирати истраживање");
+            }
         }
         [HttpPut]
         [ProducesResponseType(typeof(Research), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> UpdateResearch([FromBody] Research research)
         {
-            return Ok(await _repository.UpdateResearch(research));
+            if(await _repository.UpdateResearch(research))
+            {
+                return Ok("Успешно сте изменили истраживање");
+            } else
+            {
+                return BadRequest("Није могуће изменити истраживање");
+            }
+            
         }
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(typeof(Research), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> DeleteResearch(string id)
         {
-            return Ok(await _repository.DeleteResearch(id));
+            if(await _repository.DeleteResearch(id))
+            {
+                return Ok("Успешно сте обрисали истраживање");
+            }
+            else
+            {
+                return BadRequest("Није могуће обрисати истраживање");
+            }
         }
         [HttpGet("{researchId:length(24)}/Canvas/{canvasId:length(3)}", Name = "GetCanvas")]
         [ProducesResponseType(typeof(IEnumerable<Canvas>), (int)HttpStatusCode.OK)]
@@ -72,20 +93,40 @@ namespace ResearchAPI.Controllers
         [ProducesResponseType(typeof(Canvas), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Canvas>> CreateCanvas([FromBody] Canvas canvas, string researchId)
         {
-            await _repository.CreateCanvas(researchId, canvas);
-            return CreatedAtRoute("GetCanvas", new { researchId = researchId, canvasId = canvas.Id}, canvas);
+            try
+            {
+                await _repository.CreateCanvas(researchId, canvas);
+                return Ok("Анкета је успешно креирана");
+            }
+            catch
+            {
+                return BadRequest("Није могуће креирати анкету");
+            }
         }
         [HttpPut("{researchId:length(24)}/Canvas")]
         [ProducesResponseType(typeof(Canvas), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> UpdateCanvas([FromBody] Canvas canvas, string researchId)
         {
-            return Ok(await _repository.UpdateCanvas(researchId, canvas));
+            if(await _repository.UpdateCanvas(researchId, canvas))
+            {
+                return Ok("Успешно сте изменили анкету");
+            } else
+            {
+                return BadRequest("Није могуће изменити анкету");
+            }
+            
         }
         [HttpDelete("{researchId:length(24)}/Canvas/{canvasId:length(3)}")]
         [ProducesResponseType(typeof(Canvas), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> DeleteCanvas(string researchId, string canvasId)
         {
-            return Ok(await _repository.DeleteCanvas(researchId, canvasId));
+            if(await _repository.DeleteCanvas(researchId, canvasId))
+            {
+                return Ok("Успешно сте обрисали анкету");
+            } else
+            {
+                return BadRequest("Није могуће обрисати анкету");
+            }
         }
         [HttpGet("{researchId:length(24)}/Canvas")]
         [ProducesResponseType(typeof(IEnumerable<Canvas>), (int)HttpStatusCode.OK)]
@@ -117,20 +158,42 @@ namespace ResearchAPI.Controllers
         [ProducesResponseType(typeof(Question), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Question>> CreateQuestion([FromBody] Question question, string researchId, string canvasId)
         {
-            await _repository.CreateQuestion(researchId, canvasId, question);
-            return CreatedAtRoute("GetQuestion", new { researchId = researchId, canvasId = canvasId, questionId = question.Id }, question);
+            try
+            {
+                await _repository.CreateQuestion(researchId, canvasId, question);
+                return Ok("Питање је успешно креирано");
+            }
+            catch
+            {
+                return BadRequest("Није могуће креирати питање");
+            }
         }
         [HttpPut("{researchId:length(24)}/Canvas/{canvasId:length(3)}/Question")]
         [ProducesResponseType(typeof(Question), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> UpdateQuestion([FromBody] Question question, string researchId, string canvasId)
         {
-            return Ok(await _repository.UpdateQuestion(researchId, canvasId, question));
+            if(await _repository.UpdateQuestion(researchId, canvasId, question))
+            {
+                return Ok("Успешно сте изменили питање");
+            }
+            else
+            {
+                return BadRequest("Није могуће изменити питање");
+            }
+            
         }
         [HttpDelete("{researchId:length(24)}/Canvas/{canvasId:length(3)}/Question/{questionId:length(3)}")]
         [ProducesResponseType(typeof(Canvas), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> DeleteQuestion(string researchId, string canvasId, string questionId)
         {
-            return Ok(await _repository.DeleteQuestion(researchId, canvasId, questionId));
+            if(await _repository.DeleteQuestion(researchId, canvasId, questionId))
+            {
+                return Ok("Успешно сте обрисали питање");
+            } 
+            else
+            {
+                return BadRequest("Није могуће обрисати питање");
+            }
         }
 
 
@@ -151,8 +214,15 @@ namespace ResearchAPI.Controllers
         [ProducesResponseType(typeof(Post), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Post>> CreatePost([FromBody] Post post, string researchId)
         {
-            await _repository.CreatePost(researchId, post);
-            return CreatedAtRoute("GetPost", new { researchId = researchId, postId = post.Id }, post);
+            try
+            {
+                await _repository.CreatePost(researchId, post);
+                return Ok("Објава је успешно креирана");
+            }
+            catch
+            {
+                return BadRequest("Није могуће креирати објаву");
+            }
         }
 
         [HttpGet("{researchId:length(24)}/Post")]
@@ -167,7 +237,14 @@ namespace ResearchAPI.Controllers
         [ProducesResponseType(typeof(Post), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> UpdatePost([FromBody] Post post, string researchId)
         {
-            return Ok(await _repository.UpdatePost(researchId, post));
+            if (await _repository.UpdatePost(researchId, post))
+            {
+                return Ok("Успешно сте изменили објаву");
+            }
+            else
+            {
+                return BadRequest("Није могуће изменити објаву");
+            }
         }
 
 
@@ -175,7 +252,14 @@ namespace ResearchAPI.Controllers
         [ProducesResponseType(typeof(Canvas), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> DeletePost(string researchId, string postId)
         {
-            return Ok(await _repository.DeletePost(researchId, postId));
+            if (await _repository.DeletePost(researchId, postId))
+            {
+                return Ok("Успешно сте обрисали објаву");
+            }
+            else
+            {
+                return BadRequest("Није могуће изменити објаву");
+            }
         }
 
 

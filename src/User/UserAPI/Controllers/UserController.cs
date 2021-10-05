@@ -31,7 +31,7 @@ namespace UserAPI.Controllers
             var payload = await _repository.Authenticate(model);
             if(payload == null)
             {
-                return BadRequest("Wrong credentials.");
+                return BadRequest("Не постоји корисник са унетим креденцијалима.");
             }
             return Ok(payload);
         }
@@ -70,21 +70,40 @@ namespace UserAPI.Controllers
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<User>> CreateUser([FromBody] User user)
         {
-            await _repository.Create(user);
-
-            return CreatedAtRoute("GetUser", new { id = user.Id }, user);
+            try
+            {
+                await _repository.Create(user);
+                return Ok("Кориснички налог је успешно креиран");
+            }
+            catch
+            {
+                return BadRequest("Кориснички налог није креиран");
+            }
         }
         [HttpPut]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> UpdateUser([FromBody] User user)
         {
-            return Ok(await _repository.Update(user));
+            if(await _repository.Update(user))
+            {
+                return Ok("Успешно сте изменили кориснички налог");
+            } else
+            {
+                return BadRequest("Није могуће изменити кориснички налог");
+            }
         }
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> DeleteUser(string id)
         {
-            return Ok(await _repository.Delete(id));
+            if(await _repository.Delete(id))
+            {
+                return Ok("Успешно сте обрисали кориснички налог");
+            }
+            else
+            {
+                return BadRequest("Није могуће обрисати кориснички налог");
+            }
         }
 
     }

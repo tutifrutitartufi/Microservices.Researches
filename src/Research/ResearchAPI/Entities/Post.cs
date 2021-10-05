@@ -11,7 +11,6 @@ namespace ResearchAPI.Entities
     {
         public string Id { get; set; }
         public string Content { get; set; }
-        public List<string> Likes { get; set; }
-        public List<string> Dislikes { get; set; }
+        public string Author { get; set; }
     }
 }

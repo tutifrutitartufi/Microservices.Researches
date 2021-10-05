@@ -67,14 +67,8 @@ namespace ResearchAPI.Data
                         {
                             Id = "100",
                             Content = "Test Content Post 1",
-                            Likes = new List<string>()
-                            {
-                                IDs.FirstOrDefault()
-                            },
-                            Dislikes = new List<string>()
-                            {
-                                IDs.LastOrDefault()
-                            },                        }
+                            Author = IDs.FirstOrDefault()
+                        }
                     },
                     Canvasess = new List<Canvas>()
                     {
@@ -88,8 +82,6 @@ namespace ResearchAPI.Data
                                 {
                                     Id = "100",
                                     Title = "Title Test 1",
-                                    Answer = "Test 123",
-                                    Statistic = "Test 123123123 stat",
                                     Type = QuestionType.Single
                                 }
                             }
